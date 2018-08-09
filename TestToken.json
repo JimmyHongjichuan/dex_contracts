@@ -1,0 +1,336 @@
+[
+  {
+    "stateMutability": "view",
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "type": "bytes32",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": true,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "guy"
+      },
+      {
+        "type": "uint256",
+        "name": "wad"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "type": "bool",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": false,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "newer"
+      }
+    ],
+    "name": "changeGatewayAddr",
+    "outputs": [
+      {
+        "type": "bool",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": false,
+    "payable": false
+  },
+  {
+    "stateMutability": "view",
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": true,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "src"
+      },
+      {
+        "type": "address",
+        "name": "dst"
+      },
+      {
+        "type": "uint256",
+        "name": "wad"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "type": "bool",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": false,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "receiver"
+      },
+      {
+        "type": "uint64",
+        "name": "wad"
+      }
+    ],
+    "name": "mint",
+    "outputs": [
+      {
+        "type": "bool",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": false,
+    "payable": false
+  },
+  {
+    "stateMutability": "view",
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": true,
+    "payable": false
+  },
+  {
+    "stateMutability": "view",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "src"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": true,
+    "payable": false
+  },
+  {
+    "stateMutability": "view",
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "type": "bytes32",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": true,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "dst"
+      },
+      {
+        "type": "uint256",
+        "name": "wad"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "type": "bool",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": false,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "uint64",
+        "name": "wad"
+      },
+      {
+        "type": "string",
+        "name": "dstDescribe"
+      },
+      {
+        "type": "uint64",
+        "name": "fee"
+      }
+    ],
+    "name": "burn",
+    "outputs": [],
+    "type": "function",
+    "constant": false,
+    "payable": false
+  },
+  {
+    "stateMutability": "view",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "src"
+      },
+      {
+        "type": "address",
+        "name": "guy"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": ""
+      }
+    ],
+    "type": "function",
+    "constant": true,
+    "payable": false
+  },
+  {
+    "stateMutability": "nonpayable",
+    "type": "constructor",
+    "payable": false,
+    "inputs": [
+      {
+        "type": "address",
+        "name": "gateway"
+      }
+    ]
+  },
+  {
+    "anonymous": false,
+    "type": "event",
+    "name": "Mint",
+    "inputs": [
+      {
+        "indexed": false,
+        "type": "address",
+        "name": "receiver"
+      },
+      {
+        "indexed": false,
+        "type": "uint64",
+        "name": "wad"
+      }
+    ]
+  },
+  {
+    "anonymous": false,
+    "type": "event",
+    "name": "Burn",
+    "inputs": [
+      {
+        "indexed": false,
+        "type": "address",
+        "name": "from"
+      },
+      {
+        "indexed": false,
+        "type": "string",
+        "name": "dstDescribe"
+      },
+      {
+        "indexed": false,
+        "type": "uint64",
+        "name": "wad"
+      },
+      {
+        "indexed": false,
+        "type": "uint64",
+        "name": "fee"
+      }
+    ]
+  },
+  {
+    "anonymous": false,
+    "type": "event",
+    "name": "Transfer",
+    "inputs": [
+      {
+        "indexed": true,
+        "type": "address",
+        "name": "from"
+      },
+      {
+        "indexed": true,
+        "type": "address",
+        "name": "to"
+      },
+      {
+        "indexed": false,
+        "type": "uint256",
+        "name": "value"
+      }
+    ]
+  },
+  {
+    "anonymous": false,
+    "type": "event",
+    "name": "Approval",
+    "inputs": [
+      {
+        "indexed": true,
+        "type": "address",
+        "name": "owner"
+      },
+      {
+        "indexed": true,
+        "type": "address",
+        "name": "spender"
+      },
+      {
+        "indexed": false,
+        "type": "uint256",
+        "name": "value"
+      }
+    ]
+  }
+]
