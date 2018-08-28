@@ -36,15 +36,6 @@ def compile_testtoken():
         wfo.write(result["bin"])
 
 def compile_gatewayvote():
-    # with open("./GatewayVote.sol", "r") as fo:
-    #     content = fo.read()
-    #     result = compile_source(content)["<stdin>:GatewayVote"]
-    #     with open("GatewayVote.cpl", "w+") as wfo:
-    #         wfo.write(json.dumps(result, indent=2))
-    #     with open("GatewayVote.json", "w+") as wfo:
-    #         wfo.write(json.dumps(result["abi"], indent=2))
-    #     with open("GatewayVote.bin", "w+") as wfo:
-    #         wfo.write(result["bin"])
     result = compile_files(["GatewayVote.sol", ])
     result = result["GatewayVote.sol:GatewayVote"]
     with open("GatewayVote.cpl", "w+") as wfo:
@@ -54,9 +45,20 @@ def compile_gatewayvote():
     with open("GatewayVote.bin", "w+") as wfo:
         wfo.write(result["bin"])
 
+def compile_wbchtoken():
+    result = compile_files(["WBCHToken.sol", ])
+    result = result["WBCHToken.sol:WBCHToken"]
+    with open("WBCHToken.cpl", "w+") as wfo:
+        wfo.write(json.dumps(result, indent=2))
+    with open("WBCHToken.json", "w+") as wfo:
+        wfo.write(json.dumps(result["abi"], indent=2))
+    with open("WBCHToken.bin", "w+") as wfo:
+        wfo.write(result["bin"])
+
 if __name__ == '__main__':
+    compile_wbchtoken()
     compile_testtoken()
     compile_gatewayvote()
-    compile_multiminttoken()
+    # compile_multiminttoken()
 
 
