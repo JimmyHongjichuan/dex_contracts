@@ -59,7 +59,7 @@ contract GatewayVote
     event AppRemoved(uint32 code, uint256 indexed operation);
     
     event MintByGateway(uint32 appCode, address receiver, uint64 wad, uint256 indexed operation);
-    event BurnForGateway(uint32 appCode, address from, string dstDescribe, uint64 wad, uint64 fee);
+    event BurnForGateway(uint32 appCode, address from, string receiver, uint64 wad);
 
     event GatewayAddrChanged(uint32 appCode, address newer, uint256 indexed operation);
 
@@ -326,10 +326,10 @@ contract GatewayVote
         }
     }
     
-    function burnForGateway(address from, string dstDescribe, uint64 wad, uint64 fee) external 
+    function burnForGateway(address from, string receiver, uint64 wad) external 
     {
         require(isApper(msg.sender));
-        emit BurnForGateway(mAppToCode[uint256(msg.sender)], from, dstDescribe, wad, fee);
+        emit BurnForGateway(mAppToCode[uint256(msg.sender)], from, receiver, wad);
     }
 }
 

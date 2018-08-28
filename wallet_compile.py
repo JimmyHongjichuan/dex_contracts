@@ -16,7 +16,7 @@ def compile_multiminttoken():
             wfo.write(result["bin"])
 
 def compile_testtoken():
-    # with open("./TestToken.sol", "r") as fo:
+    # wiVth open("./TestToken.sol", "r") as fo:
     #     content = fo.read()
     #     print(len(content))
     #     result = compile_source(content)["<stdin>:TestToken"]
@@ -57,7 +57,7 @@ def compile_wbchtoken():
 
 if __name__ == '__main__':
     compile_wbchtoken()
-    compile_testtoken()
+    # compile_testtoken()
     compile_gatewayvote()
     # compile_multiminttoken()
 

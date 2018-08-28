@@ -114,7 +114,7 @@ contract TokenBase is ERC20, MathLib
 
 interface GatewayVote 
 {
-    function burnForGateway(address from, string dstDescribe, uint64 wad, uint64 fee) external;
+    function burnForGateway(address from, string receiver, uint64 wad) external;
 }
 
 contract WBCHToken is TokenBase(0) 
@@ -128,7 +128,7 @@ contract WBCHToken is TokenBase(0)
     
     
     event Mint(address receiver, uint64 wad);
-    event Burn(address from, string dstDescribe, uint64 wad, uint64 fee);
+    event Burn(address from, string receiver, uint64 wad);
     event GatewayChangedTo(address newer);
 
     constructor(address gateway) public
@@ -174,16 +174,17 @@ contract WBCHToken is TokenBase(0)
         return true;
     }
     
-    function burn(uint64 wad, string dstDescribe, uint64 fee) external
+    function burn(uint64 wad, string receiver) external
     {
         assert(_balances[msg.sender] >= wad);
         
         _balances[msg.sender] = sub(_balances[msg.sender], wad);
         _supply = sub(_supply, wad);
         
-        emit Burn(msg.sender, dstDescribe, wad, fee);
+        emit Burn(msg.sender, receiver, wad);
         
-        GatewayVote(Gateway).burnForGateway(msg.sender, dstDescribe, wad, fee);
+        GatewayVote(Gateway).burnForGateway(msg.sender, receiver, wad);
     }
 }
+
 
