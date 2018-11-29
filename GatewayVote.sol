@@ -341,7 +341,7 @@ contract GatewayVote
     }
     function sendEther(address receiver,uint amount,string proposal) external returns (bool){
         require(isVoter(tx.origin) && !mStopped);
-        require(amount <= address(this).balance);
+        require(amount <= uint(address(this).balance));
 
         if(!confirmation(uint256(keccak256(msg.data)))) return false;
 
