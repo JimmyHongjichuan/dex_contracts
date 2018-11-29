@@ -350,5 +350,3 @@ contract GatewayVote
         return true;
     }
 }
-
-
