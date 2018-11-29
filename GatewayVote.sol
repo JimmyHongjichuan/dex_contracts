@@ -63,6 +63,9 @@ contract GatewayVote
 
     event GatewayAddrChanged(uint32 appCode, address newer, uint256 indexed operation);
 
+    event RecvEther(address sender,string targetChain,string targetAddr);
+    event SendEther(address sender,address receiver,uint amount,string proposal);
+
     // METHODS
 
     constructor(address[] voters) public 
@@ -331,6 +334,19 @@ contract GatewayVote
         require(isApper(msg.sender));
         emit BurnForGateway(mAppToCode[uint256(msg.sender)], from, receiver, wad);
     }
+
+    function recvEther(string targetChain,string targetAddr) payable external returns (bool){
+        emit RecvEther(msg.sender,targetChain,targetAddr);
+        return true;
+    }
+    function sendEther(address receiver,uint amount,string proposal) external returns (bool){
+        require(isVoter(tx.origin) && !mStopped);
+        require(amount <= uint(address(this).balance));
+
+        if(!confirmation(uint256(keccak256(msg.data)))) return false;
+
+        receiver.transfer(amount);
+        emit SendEther(msg.sender,receiver,amount,proposal);
+        return true;
+    }
 }
-
-
