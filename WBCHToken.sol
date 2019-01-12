@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.24 <0.6.0;
 
 contract MathLib 
 {
@@ -36,9 +36,9 @@ contract MathLib
 
 contract ERC20 
 {
-    function totalSupply() public constant returns (uint supply);
-    function balanceOf(address who) public constant returns (uint value);
-    function allowance(address owner, address spender) public constant returns (uint _allowance);
+    function totalSupply() public view returns (uint supply);
+    function balanceOf(address who) public view returns (uint value);
+    function allowance(address owner, address spender) public view returns (uint _allowance);
 
     function transfer(address to, uint value) public returns (bool ok);
     function transferFrom(address from, address to, uint value) public returns (bool ok);
@@ -60,17 +60,17 @@ contract TokenBase is ERC20, MathLib
         _supply = supply;
     }
     
-    function totalSupply() public constant returns (uint256) 
+    function totalSupply() public view returns (uint256) 
     {
         return _supply;
     }
     
-    function balanceOf(address src) public constant returns (uint256) 
+    function balanceOf(address src) public view returns (uint256) 
     {
         return _balances[src];
     }
     
-    function allowance(address src, address guy) public constant returns (uint256) 
+    function allowance(address src, address guy) public view returns (uint256) 
     {
         return _approvals[src][guy];
     }
@@ -114,7 +114,7 @@ contract TokenBase is ERC20, MathLib
 
 interface GatewayVote 
 {
-    function burnForGateway(address from, string receiver, uint64 wad) external;
+    function burnForGateway(address from, string calldata receiver, uint64 wad) external;
 }
 
 contract WBCHToken is TokenBase(0) 
@@ -174,7 +174,7 @@ contract WBCHToken is TokenBase(0)
         return true;
     }
     
-    function burn(uint64 wad, string receiver) external
+    function burn(uint64 wad, string calldata receiver) external
     {
         assert(_balances[msg.sender] >= wad);
         

@@ -1,7 +1,6 @@
-pragma solidity ^0.4.24;
+pragma solidity >=0.4.24 <0.6.0;
 
-
-interface App 
+interface App
 {
     function mint(address receiver, uint64 wad) external returns (bool);
     function changeGatewayAddr(address newer) external returns (bool);
@@ -9,6 +8,7 @@ interface App
 
 contract GatewayVote 
 {
+
     
     struct Vote 
     {
@@ -68,7 +68,7 @@ contract GatewayVote
 
     // METHODS
 
-    constructor(address[] voters) public 
+    constructor(address[] memory  voters) public 
     {
         mNumVoters = voters.length;
         for (uint i = 0; i < voters.length; ++i)
@@ -122,7 +122,7 @@ contract GatewayVote
         return isVoter(addr) || isApper(addr);
     }
     
-    function isChain(string chain) public view returns (bool) 
+    function isChain(string memory chain) public view returns (bool) 
     {
         return mChainToCode[chain] > 0;
     }
@@ -132,17 +132,17 @@ contract GatewayVote
         return mChainToCode[mCodeToChain[code]] == code;
     }
     
-    function getChainName(uint32 code) public view returns (string) 
+    function getChainName(uint32 code) public view returns (string memory) 
     {
         return mCodeToChain[code];
     }
     
-    function getChainCode(string chain) public view returns (uint32) 
+    function getChainCode(string memory chain) public view returns (uint32) 
     {
         return mChainToCode[chain];
     }
     
-    function hasConfirmed(uint256 operation, address voter) public constant returns (bool) 
+    function hasConfirmed(uint256 operation, address voter) public view returns (bool) 
     {
         if (mVotesStore[operation].voters[uint(voter)] == 1) 
         {
@@ -164,7 +164,7 @@ contract GatewayVote
     {
         Vote storage vote = mVotesStore[operation];
         
-        if (vote.done) return;
+        if (vote.done) return true;
         
         if (vote.voters[uint(tx.origin)] == 0) 
         {
@@ -182,7 +182,7 @@ contract GatewayVote
         }
     }
     
-    function stop(string proposal) external 
+    function stop(string calldata proposal) external 
     {
         // the origin tranx sender should be a voter
         // contract should be running
@@ -198,7 +198,7 @@ contract GatewayVote
         emit Stopped(uint(keccak256(msg.data)));
     }
     
-    function start(string proposal) external 
+    function start(string calldata  proposal) external 
     {
         
         // the origin tranx sender should be a voter
@@ -229,7 +229,7 @@ contract GatewayVote
         emit Revoke(tx.origin, operation);
     }
     
-    function changeVoter(address older, address newer, string proposal) external 
+    function changeVoter(address older, address newer, string calldata proposal) external 
     {
         
         require(isVoter(tx.origin) && !mStopped && isVoter(older) && !isVoter(newer));
@@ -242,7 +242,7 @@ contract GatewayVote
         emit VoterChanged(older, newer, uint(keccak256(msg.data)));
     }
     
-    function addVoter(address newer, string proposal) external 
+    function addVoter(address newer, string calldata proposal) external 
     {
         
         require(isVoter(tx.origin) && !mStopped && !isVoter(newer));
@@ -255,7 +255,7 @@ contract GatewayVote
         emit VoterAdded(newer, uint256(keccak256(msg.data)));
     }
     
-    function removeVoter(address older, string proposal) external 
+    function removeVoter(address older, string calldata proposal) external 
     {
         
         require(isVoter(tx.origin) && !mStopped && isVoter(older));
@@ -268,7 +268,7 @@ contract GatewayVote
         emit VoterRemoved(older, uint256(keccak256(msg.data)));
     }
     
-    function addChain(string chain, string proposal) external 
+    function addChain(string calldata chain, string calldata proposal) external 
     {
         require(isVoter(tx.origin) && !mStopped && !isChain(chain));
         
@@ -281,7 +281,7 @@ contract GatewayVote
         emit ChainAdded(chain, uint256(keccak256(msg.data)));
     }
     
-    function addApp(address app, uint32 chain, uint32 token, string proposal) external 
+    function addApp(address app, uint32 chain, uint32 token, string calldata proposal) external 
     {
         require(isVoter(tx.origin) && !mStopped && !isApper(app) && isChainCode(chain));
         
@@ -294,7 +294,7 @@ contract GatewayVote
         emit AppAdded(app, chain, token, uint256(keccak256(msg.data)));
     }
     
-    function removeApp(uint32 code, string proposal) external 
+    function removeApp(uint32 code, string calldata  proposal) external 
     {
         require(isVoter(tx.origin) && !mStopped && isAppCode(code));
         
@@ -305,7 +305,7 @@ contract GatewayVote
         emit AppRemoved(code, uint256(keccak256(msg.data)));
     }
     
-    function mintByGateway(uint32 appCode, uint64 wad, address receiver, string proposal) external 
+    function mintByGateway(uint32 appCode, uint64 wad, address receiver, string  calldata proposal) external 
     {
         require(isVoter(tx.origin) && !mStopped && isAppCode(appCode));
         
@@ -317,7 +317,7 @@ contract GatewayVote
         }
     }
     
-    function changeGatewayAddr(uint32 appCode, address newer, string proposal) external 
+    function changeGatewayAddr(uint32 appCode, address newer, string calldata  proposal) external 
     {
         require(isVoter(tx.origin) && !mStopped && isAppCode(appCode));
         
@@ -329,23 +329,23 @@ contract GatewayVote
         }
     }
     
-    function burnForGateway(address from, string receiver, uint64 wad) external 
+    function burnForGateway(address from, string calldata receiver, uint64 wad) external 
     {
         require(isApper(msg.sender));
         emit BurnForGateway(mAppToCode[uint256(msg.sender)], from, receiver, wad);
     }
 
-    function recvEther(string targetChain,string targetAddr) payable external returns (bool){
+    function recvEther(string calldata  targetChain,string calldata targetAddr) payable external returns (bool){
         emit RecvEther(msg.sender,targetChain,targetAddr);
         return true;
     }
-    function sendEther(address receiver,uint amount,string proposal) external returns (bool){
+    function sendEther(address receiver,uint amount,string calldata proposal) external returns (bool){
         require(isVoter(tx.origin) && !mStopped);
         require(amount <= uint(address(this).balance));
 
         if(!confirmation(uint256(keccak256(msg.data)))) return false;
 
-        receiver.transfer(amount);
+        //receiver.transfer(amount);
         emit SendEther(msg.sender,receiver,amount,proposal);
         return true;
     }
